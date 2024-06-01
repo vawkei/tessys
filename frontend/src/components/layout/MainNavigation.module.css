@@ -1,0 +1,127 @@
+.header{
+    background-color: black;
+    padding: 1rem 10%;
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 500;
+}
+.header a{
+    color: white;
+}
+
+.logo a{
+    color: white;
+}
+.logo span{
+    color: yellow;
+}
+
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+ul a{
+    margin: 0 1rem;
+    text-decoration: none;
+}
+
+.cart div{
+    display: flex;
+    align-items: center;
+}
+
+.conditional-cart{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+/* .conditional-cart a{
+    text-decoration: none;
+}*/
+
+.mobile-icon{
+    display: none;
+}
+
+.active{
+  border-bottom: 1px solid red;
+}
+
+
+/* MEDIA QUERY 
+FOR EVERY PHONE BELOW 640PX WHEN STANDING STRAIGHT/PORTRAIT/VERTICAL AND NOT DIAGONALLY*/
+@media screen and (max-width: 640px) {
+    .logo{
+        font-size: 1.3rem;
+    }
+    
+    nav{
+        display: block;
+        position: absolute;
+        top: 5rem;
+        left: 0;
+        width: 50%;
+        height: 100vh;
+        background-color: black;
+        padding: 1rem;
+        /* transform: translateX(-200%); */
+        transition: all 0.3s;
+        z-index: 10;
+    }
+    .nav-backdrop{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        transform: translateX();
+        transition: all 0.3s;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    .show-nav-backdrop{
+        transform: translateX(100%);
+    }
+    .header{
+        width: 100%;
+        position: relative;
+    }
+    .header ul{
+        display: block;
+    }
+    .header ul a{
+        display: block;
+        padding: 1rem 0;
+        font-size: 1.3rem;
+        border-bottom: 0.5px solid yellow;
+    }
+    /* .cart{
+        display: flex;
+    } */
+    .cart div{
+        display: flex;
+        align-items: center;
+    }
+    .show-navigation{
+        transform: translateX(0);
+    }
+    .hide-navigation{
+        transform: translateX(-200%);
+    }
+    .mobile-icon{
+        display: block;
+    }
+}

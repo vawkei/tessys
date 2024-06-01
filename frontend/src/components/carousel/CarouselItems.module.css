@@ -1,0 +1,83 @@
+.container{
+  width: 100vw;
+  max-width: 70rem;
+  margin: 1rem auto;
+}
+.container h1{
+  margin-top: 1rem;
+}
+.cardClass{
+    width: 20rem;
+  }
+  .cardClass img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+  }
+  
+  .content{
+    text-align: center;
+  }
+  .action{
+    display: flex;
+    justify-content: center;
+  }
+  .action .btn{
+    width: 100%;
+    padding: 0.5rem 5.5rem;
+  }
+  
+  
+  
+  /* Media query starts here */
+  /* this is for tablets */
+  @media screen and (min-width:641px) and (max-width:1024px){
+    .cardClass{
+      width: 100%;
+    }
+    .action{
+      display: flex;
+      justify-content: center;
+    }
+    .action .btn{
+      width: 100%;
+      padding: 1rem 8.0rem;
+    }
+  }
+  
+  /* this is for regular phones like: iphone:xr,se,12pro14promax, pixl 7, galaxys20ultra*/
+  /* @media screen and (min-width:359px) and (max-width:640px){
+    
+    .cardClass{
+      width: 100%;
+    }
+  
+    .action .btn{
+      width: 100%;
+      padding: 1rem 9.5rem;
+      background-color: red;
+    }
+    
+  } */
+  
+  @media screen and (max-width:640px){
+    .container h1{
+      margin: 3rem 1rem;
+      background-color: orange;
+      padding: 1.5rem;
+      color: white;
+    }
+    .cardClass{
+      width: 100%;
+    }
+    .action{
+      display: flex;
+      justify-content: center;
+    }
+    .action .btn{
+      width: 100%;
+      padding: 0.2rem 5.5rem;
+      background-color: blue;
+    }
+  }
+  
