@@ -1,0 +1,49 @@
+.intro{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.intro .search{
+  width: 30%;
+  margin-bottom: 1rem;
+}
+
+.cardClass{
+  width: 100%;
+  max-width: 70rem;  
+}
+.namePart{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.allProduct-container table{
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 1.2rem;
+}
+
+.allProduct-container table thead{
+  background-color: black;
+  padding: 1.5rem;
+  color: white;
+}
+
+.allProduct-container table tbody{
+  text-align: left;
+  padding: 1rem;
+}
+
+.allProduct-container table tbody td{
+  padding: 1rem;
+  border: 1px solid black;
+  vertical-align: top;
+}
+.icons{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+}

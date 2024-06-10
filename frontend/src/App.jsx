@@ -9,16 +9,20 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoginStatus, getUser } from "./store/auth/authIndex";
 import ProfileHome from "./components/profile/ProfileHome";
+import ProfileForm from "./components/profile/ProfileForm";
+import ContactPage from "./pages/ContactPage";
+import { AdminOnlyRoute } from "./components/adminFolders/adminOnly/AdminOnlyRoute";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   axios.defaults.withCredentials = true;
 
-   const { isLoggedIn,user } = useSelector((state) => state.auth);
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getLoginStatus());
-  }, [dispatch,getLoginStatus]);
+  }, [dispatch, getLoginStatus]);
 
   useEffect(() => {
     if (isLoggedIn && user === null) {
@@ -35,7 +39,18 @@ function App() {
         <Route path="/logIn" element={<Login />} />
 
         <Route path="/profile" element={<ProfileHome />} />
-        {/* <Route  path="/profile/edit-profile" element={<ProfileForm />} /> */}
+        <Route path="/profile/edit-profile" element={<ProfileForm />} />
+
+        <Route path="/contact" element={<ContactPage />} />
+
+        <Route
+          path="/admin/*"
+          element={
+            <AdminOnlyRoute>
+              <AdminPage />
+            </AdminOnlyRoute>
+          }
+        />
       </Routes>
     </Layout>
   );

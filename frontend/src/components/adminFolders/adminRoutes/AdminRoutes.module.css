@@ -1,0 +1,14 @@
+.admin {
+    display: flex;
+    gap: 1rem;
+    min-height: 80vh;
+    width: 100%;
+    /* margin-left: 1rem; */
+}
+.nav-bar{
+    width: 10%;
+    min-height: 80vh;
+}
+.content{
+    width: 90%;
+}

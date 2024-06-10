@@ -1,0 +1,58 @@
+.over-all-container h2{
+    margin: 1rem 22rem;
+}
+.over-all-container h4{
+    /* text-align: center; */
+    margin: 1rem 22rem;
+}
+.container{
+    margin: 2rem auto; 
+    width: 80%;
+    max-width: 35rem;
+    padding: 1rem;
+}
+
+.container .control{
+    padding: 1rem;
+}
+.container .control label{
+    display: block;
+}
+.container .control input{
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+.container .action{
+    display: flex;
+    justify-content: center;
+}
+
+.image-area{
+    display: flex;
+    flex-direction: column;
+}
+.image-area img{
+    width: 200px;
+}
+.save-PhotoButton .btn{
+    padding:0.1rem 2.5rem;
+    text-align: center;
+}
+
+
+@media screen and (max-width:760px){
+    .container{
+        margin: -5rem auto; 
+        width: 80%;
+        max-width: 35rem;
+        padding: 1rem;
+        /* background-color: red; */
+    }
+    .spinner{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

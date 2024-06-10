@@ -5,15 +5,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authSliceActions, logout } from "../../store/auth/authIndex";
 import DrawerToggleButton from "../ui/drawerToggleButton/DrawerToggleButton";
+import { AdminOnlyLink } from "../adminFolders/adminOnly/AdminOnlyRoute";
 
 const MainNavigation = () => {
   //states, dispatch, useSelector, functions, declarations, navigate, useMediaQ.:
   const [showMenu, setShowMenu] = useState(false);
 
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn,user } = useSelector((state) => state.auth);
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   console.log(isLoggedIn);
 
   const toggleMenuHandler = () => {
@@ -28,12 +28,12 @@ const MainNavigation = () => {
 
   const logOutHandler = async () => {
     await dispatch(logout());
-    dispatch(authSliceActions.RESET_AUTH())
-    navigate("/login")
+    dispatch(authSliceActions.RESET_AUTH());
+    navigate("/login");
   };
 
   // vawkeicodewebz@gmail.com
-  
+
   const hideMenuHandler = () => {
     setShowMenu(false);
   };
@@ -84,6 +84,12 @@ const MainNavigation = () => {
             }></div>
 
           <ul onClick={toggleMenuHandler}>
+            <AdminOnlyLink>
+              <NavLink className={navDataHandler} to={"/admin/home"}>
+                <li style={{color:"green"}}>Admin</li>
+              </NavLink>
+            </AdminOnlyLink>
+
             <NavLink className={navDataHandler} to={"/shop"}>
               <li>Shop</li>
             </NavLink>

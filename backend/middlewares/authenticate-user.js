@@ -16,7 +16,7 @@ const authenticateUser = (req, res, next) => {
 };
 
 const adminOnly = async (req, res, next) => {
-  const token = res.cookies.token;
+  const token = req.cookies.token;
   if (!token) {
     return res.status(401).json({
       msg: "you are not authorized to access this route, please log in",
@@ -32,7 +32,7 @@ const adminOnly = async (req, res, next) => {
   if(verifiedToken && user.role==="admin"){
     next()
   }else{
-    return res.status(401).json({msg:"this route can only be accessed by the admin"})
+    return res.status(401).json({msg:"you are not allowed to view this route."})
   }
 
 };

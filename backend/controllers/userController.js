@@ -222,9 +222,8 @@ const getUser = async (req, res) => {
   // res.send("getUser");
 };
 
-// 7 uploadUserPhoto=============================================================:
+// 7 uploadUserPhoto to cloudinary================================================:
 const uploadUserPhoto = async (req, res) => {
-  
   console.log(req.files.image);
 
   try {
@@ -253,10 +252,87 @@ const uploadUserPhoto = async (req, res) => {
       .json({ msg: { src: result.secure_url, publicID: result.public_id } });
     fs.unlinkSync(req.files.image.tempFilePath);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-  
 };
+
+//updateUserPhoto in db============================================================
+const updateUserPhoto = async (req, res) => {
+  const userId = req.user.userId;
+  console.log(userId);
+
+  const { photo } = req.body;
+  console.log(photo);
+
+  try {
+    const user = await User.findOne({ _id: userId });
+    console.log(user);
+
+    if (!user) {
+      return res.status(404).json({ msg: `no user with id: ${userId} found` });
+    }
+
+    user.photo = photo;
+    const updatedUser = await user.save();
+    console.log("updatedUser:", updatedUser);
+
+    res
+      .status(201)
+      .json({ msg: "user photo updated in db", updatedUser: updatedUser });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+//updateUser =====================================================================
+const updateUser = async (req, res) => {
+  const userId = req.user.userId;
+
+  const { name, surname, phone, address, town, state } = req.body;
+  if (!name || !surname || !phone || !address || !town || !state) {
+    return res.status(400).json({ msg: "input feilds shouldn't be empty" });
+  }
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        name: name,
+        surname: surname,
+        phone: phone,
+        address: address,
+        town: town,
+        state: state,
+      },
+      { new: true, runValidators: true }
+    );
+    res.status(201).json({msg:"user updated",updatedUser:user})
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+//getAllUsers=====================================================================
+const getAllUsers = async (req,res) =>{
+    const userId = req.user.userId;
+    console.log(userId);
+
+    const user = await User.findOne({_id:userId}).select("-password");
+    
+    if(!user){
+      return  res.status(404).json({msg:`no user with id: ${userId}`})
+    };
+    
+    if(user.role === "admin"){
+      const allUsers = await User.find({}).select("-password");
+      res.status(200).json({allUsers:allUsers});
+    }else{
+      return null
+    }
+
+}
 
 module.exports = {
   register,
@@ -265,5 +341,8 @@ module.exports = {
   logout,
   getLoginStatus,
   getUser,
-  uploadUserPhoto
+  uploadUserPhoto,
+  updateUserPhoto,
+  updateUser,
+  getAllUsers
 };

@@ -17,6 +17,7 @@ const errorHandlerMiddleware = require("./middlewares/error-handler-middleware")
 //require routes:
 const productRoute = require("./routes/productRoute");
 const userRoute  = require("./routes/userRoute");
+const categoryRoute = require("./routes/categoryRoute");
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -47,6 +48,7 @@ cloudinary.config({
 //api routes:
 app.use("/api/v1/products", productRoute);
 app.use("/api/v1/auth",userRoute);
+app.use("/api/v1/categories",categoryRoute);
 
 app.use(errorHandlerMiddleware)
 

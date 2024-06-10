@@ -5,6 +5,8 @@ import {
 } from "@reduxjs/toolkit";
 
 import authService from "./authService";
+import categorySlice from "../category/categoryIndex";
+import productSlice from "../product/productIndex";
 
 const initialAuthState = {
   isLoggedIn: false,
@@ -102,6 +104,55 @@ export const getUser = createAsyncThunk("auth/getUser", async (_, thunkApi) => {
     return thunkApi.rejectWithValue(message);
   }
 });
+
+//updateUserPhoto:
+export const updateUserPhoto = createAsyncThunk(
+  "auth/updateUserPhoto",
+  async (userData, thunkApi) => {
+    try {
+      return await authService.updateUserPhoto(userData);
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.data.msg) ||
+        error.msg ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+//updateUser:
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (userData, thunkApi) => {
+    try {
+      return await authService.updateUser(userData);
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.data.msg) ||
+        error.msg ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+//getAllUsers:
+export const getAllUsers = createAsyncThunk(
+  "auth/getAllUsers",
+  async (_, thunkApi) => {
+    try {
+      return await authService.getAllUsers();
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.data.msg) ||
+        error.msg ||
+        error.toString();
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: initialAuthState,
@@ -132,7 +183,7 @@ const authSlice = createSlice({
         state.user = null;
         console.log(action.payload);
       })
-      //verifyEmail===================================================================:
+      //3 verifyEmail===================================================================:
       .addCase(verifyEmail.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -149,7 +200,7 @@ const authSlice = createSlice({
         state.message = action.payload.msg;
         console.log(action.payload);
       })
-      //login:
+      //4 login==========================================================================:
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
@@ -168,7 +219,7 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         state.user = null;
       })
-      //logout:
+      //5 logout========================================================================:
       .addCase(logout.pending, (state) => {
         state.isLoading = true;
       })
@@ -185,7 +236,7 @@ const authSlice = createSlice({
         state.isError = true;
         console.log(action.payload);
       })
-      //getLoginStatus:
+      //6 getLoginStatus================================================================:
       .addCase(getLoginStatus.pending, (state) => {
         state.isLoading = true;
       })
@@ -199,20 +250,64 @@ const authSlice = createSlice({
         state.isError = true;
         console.log(action.payload);
       })
-      //getUser:
-      .addCase(getUser.pending,(state)=>{
+      //7 getUser=====================================================================:
+      .addCase(getUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getUser.fulfilled,(state,action)=>{
+      .addCase(getUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
+        state.message ="ok"
         state.user = action.payload;
-        console.log(action.payload)
+        console.log(action.payload);
       })
-      .addCase(getUser.rejected,(state,action)=>{
+      .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.user = null;
+        console.log(action.payload);
+      })
+      //8 updateUserPhoto==============================================================:
+      .addCase(updateUserPhoto.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserPhoto.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log(action.payload.msg);
+      })
+      .addCase(updateUserPhoto.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        console.log(action.payload);
+      })
+      //9 updateUser====================================================================:
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.updatedUser;
+        console.log(action.payload);
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.user = null;
+        state.isError = true;
+        console.log(action.payload);
+      })
+      //10 getAllUsers==================================================================
+      .addCase(getAllUsers.pending,(state)=>{
+        state.isLoading = true
+      })
+      .addCase(getAllUsers.fulfilled,(state,action)=>{
+        state.isLoading = false;
+        state.users = action.payload.allUsers;
+        console.log(action.payload)
+      })
+      .addCase(getAllUsers.rejected,(state,action)=>{
+        state.isLoading = false;
+        state.isError = true;
+        state.users = null;
         console.log(action.payload)
       })
   },
@@ -221,6 +316,8 @@ const authSlice = createSlice({
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
+    category:categorySlice.reducer,
+    product:productSlice.reducer
   },
 });
 
